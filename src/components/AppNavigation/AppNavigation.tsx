@@ -13,8 +13,8 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ value, setValue }) => {
   };
 
   return (
-    <div className="flex flex-col w-16 h-5/6 bg-white rounded-2xl justify-between">
-      <div className="flex flex-col items-start justify-center w-full h-1/2">
+    <div className="fixed bottom-0 left-0 sm:static sm:left-auto sm:bottom-auto sm:top-auto flex sm:flex-col w-full h-16 sm:w-16 sm:h-5/6 bg-white rounded-2xl justify-between">
+      <div className="flex sm:flex-col items-start justify-center w-full h-1/2">
         <div
           className="group flex items-center justify-center w-full h-fit py-4 gap-4 cursor-pointer hover:w-fit hover:bg-white hover:px-8"
           onClick={() => setValue("statistika")}

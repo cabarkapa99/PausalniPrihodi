@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import logos from "@/constants/logos";
-import { SignedOut, SignInButton } from "@clerk/nextjs";
+import { SignedOut, SignInButton, SignedIn, UserButton } from "@clerk/nextjs";
 import { Button } from "../ui/button";
 
 const LandingNavigation = () => {
@@ -16,6 +16,9 @@ const LandingNavigation = () => {
             <Button>Sign in</Button>
           </SignInButton>
         </SignedOut>
+        <SignedIn>
+          <UserButton />
+        </SignedIn>
       </div>
     </nav>
   );
