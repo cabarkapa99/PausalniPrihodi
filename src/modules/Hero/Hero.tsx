@@ -1,7 +1,8 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
-import { SignUpButton } from "@clerk/nextjs";
+import { SignUpButton, SignedOut, SignedIn } from "@clerk/nextjs";
+import Link from "next/link";
 
 const Hero: React.FC = () => {
   return (
@@ -34,13 +35,20 @@ const Hero: React.FC = () => {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8, ease: "easeOut", delay: 0.6 }}
       >
-        <SignUpButton mode={"modal"}>Počnite sada</SignUpButton>
+        <SignedOut>
+          <SignUpButton mode={"modal"}>Počnite sada</SignUpButton>
+        </SignedOut>
+        <SignedIn>
+          <Link href="/app">Počnite sada</Link>
+        </SignedIn>
       </motion.div>
 
       {/* Hero Image (Replace with your own screenshot or illustration) */}
       <motion.img
-        src="https://source.unsplash.com/800x500/?finance,graphs"
+        src="https://plus.unsplash.com/premium_photo-1681487769650-a0c3fbaed85a?q=80&w=2155&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
         alt="Income Tracker"
+        width={800}
+        height={600}
         className="mt-12 rounded-lg shadow-lg w-full max-w-3xl"
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
