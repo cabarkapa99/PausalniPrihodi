@@ -58,25 +58,25 @@ interface DataPoint {
 }
 
 const ProgressBars: React.FC<DataPoint> = ({ data }) => {
-  let last365Days = data?.filter(
+  const last365Days = data?.filter(
     (item) =>
       new Date(item.date) >=
       new Date(new Date().setFullYear(new Date().getFullYear() - 1))
   );
-  let amountOfLast365Days = last365Days?.reduce(
+  const amountOfLast365Days = last365Days?.reduce(
     (acc, item) => acc + item.amount,
     0
   );
-  let percentageOfLast365Days = (amountOfLast365Days / 8000000) * 100;
-  let currentYear = data?.filter((item) => {
+  const percentageOfLast365Days = (amountOfLast365Days / 8000000) * 100;
+  const currentYear = data?.filter((item) => {
     const startOfYear = new Date(new Date().getFullYear(), 0, 1); // January 1st, 00:00:00
     return new Date(item.date) >= startOfYear;
   });
-  let amountOfCurrentYear = currentYear?.reduce(
+  const amountOfCurrentYear = currentYear?.reduce(
     (acc, item) => acc + item.amount,
     0
   );
-  let percentageOfCurrentYear = (amountOfCurrentYear / 6000000) * 100;
+  const percentageOfCurrentYear = (amountOfCurrentYear / 6000000) * 100;
   return (
     <div className="flex flex-col gap-6 items-center justify-center p-6">
       <ProgressBar

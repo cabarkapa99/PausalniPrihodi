@@ -13,7 +13,10 @@ export async function POST(req: NextRequest) {
   try {
     body = await req.json();
   } catch (error) {
-    return NextResponse.json({ message: "Invalid JSON body" }, { status: 400 });
+    return NextResponse.json(
+      { message: "Invalid JSON body", error },
+      { status: 400 }
+    );
   }
 
   try {
@@ -36,7 +39,7 @@ export async function POST(req: NextRequest) {
 }
 
 // ✅ Fetch incomes
-export async function GET(req: NextRequest) {
+export async function GET() {
   const { userId } = await auth();
   if (!userId) {
     return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
