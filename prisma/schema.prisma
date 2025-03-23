@@ -13,4 +13,6 @@ model Income {
   amount  Float
   date    DateTime
   tag     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
