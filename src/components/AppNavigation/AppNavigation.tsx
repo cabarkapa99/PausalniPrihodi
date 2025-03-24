@@ -23,7 +23,7 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ value, setValue }) => {
             size={24}
             className={getNavItemClass("statistika")}
           />
-          <p className="text-l text-gray-500 font-sans hidden group-hover:block">
+          <p className="text-l text-gray-500 font-sans hidden sm:group-hover:block">
             Statistika
           </p>
         </div>
@@ -32,7 +32,7 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ value, setValue }) => {
           onClick={() => setValue("dodaj")}
         >
           <CirclePlus size={24} className={getNavItemClass("dodaj")} />
-          <p className="text-l text-gray-500 font-sans hidden group-hover:block">
+          <p className="text-l text-gray-500 font-sans hidden sm:group-hover:block">
             Dodaj
           </p>
         </div>
@@ -41,7 +41,7 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ value, setValue }) => {
           onClick={() => setValue("istorija")}
         >
           <Clock size={24} className={getNavItemClass("istorija")} />
-          <p className="text-l text-gray-500 font-sans hidden group-hover:block">
+          <p className="text-l text-gray-500 font-sans hidden sm:group-hover:block">
             Istorija
           </p>
         </div>

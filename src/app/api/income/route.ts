@@ -41,6 +41,7 @@ export async function POST(req: NextRequest) {
 // ✅ Fetch incomes
 export async function GET() {
   const { userId } = await auth();
+  // const userId = "user_2uiUcL8p9x6plNTULJAphxYDmfx"; // For testing purposes
   if (!userId) {
     return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
   }

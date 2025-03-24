@@ -20,12 +20,12 @@ const Chart: React.FC<DataPoint> = ({ data }) => {
   }, {});
 
   // Convert objects to arrays for rendering
-  const monthlyDataArray = Object.entries(monthlyData).map(
-    ([time, amount]) => ({
+  const monthlyDataArray = Object.entries(monthlyData)
+    .map(([time, amount]) => ({
       time,
       amount,
-    })
-  );
+    }))
+    .slice(-10); //taking last 10 months
 
   const yearlyDataArray = Object.entries(yearlyData).map(([time, amount]) => ({
     time,
@@ -38,7 +38,7 @@ const Chart: React.FC<DataPoint> = ({ data }) => {
   const maxAmount = Math.max(...sortedData.map((d) => d.amount)); // Scale axis based on max value
 
   return (
-    <div className="w-full max-w-lg p-6 bg-white shadow-lg rounded-lg">
+    <div className="w-full max-w-lg p-6 pb-12 bg-white shadow-lg rounded-lg">
       {/* Dropdown to switch time period */}
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-lg font-semibold">Vremenski prikaz</h2>
@@ -57,16 +57,20 @@ const Chart: React.FC<DataPoint> = ({ data }) => {
         {sortedData.map((point, index) => (
           <motion.div
             key={index}
-            className="relative w-8 bg-lime-200 rounded-lg"
+            className="relative w-8 bg-lime-200 rounded-lg group"
             initial={{ height: 0 }}
             animate={{ height: `${(point.amount / maxAmount) * 100 - 10}%` }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            <div className="absolute bottom-full mb-2 text-sm text-gray-700 text-center w-full">
-              {point.amount.toLocaleString()} {/* Show amount above bar */}
+            {/* Tooltip */}
+            <div className="absolute bottom-full mb-2 hidden group-hover:block bg-gray-700 text-white text-xs rounded-md px-2 py-1 z-10">
+              {point.amount.toLocaleString()} {/* Tooltip content */}
             </div>
-            <div className="absolute w-full text-xs text-gray-600 text-center -bottom-5">
-              {point.time}
+            <div className="absolute w-full text-xs text-gray-600 text-center -bottom-10">
+              {new Date(point.time).toLocaleDateString("en-US", {
+                year: "2-digit",
+                month: "short",
+              })}
             </div>
           </motion.div>
         ))}

@@ -12,7 +12,7 @@ const Table: React.FC<TableProps> = ({ data }) => {
   );
 
   return (
-    <div className="w-full max-w-2xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
+    <div className="w-full max-w-2xl mx-auto bg-white shadow-lg rounded-lg overflow-y-scroll h-1/2">
       <table className="w-full table-auto">
         {/* Table Header */}
         <thead className="bg-teal-800 text-white">
