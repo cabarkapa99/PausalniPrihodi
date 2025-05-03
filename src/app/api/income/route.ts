@@ -59,3 +59,68 @@ export async function GET() {
     );
   }
 }
+
+export async function PUT(req: NextRequest) {
+  const { userId } = await auth();
+  if (!userId) {
+    return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+  }
+
+  let body;
+  try {
+    body = await req.json();
+  } catch (error) {
+    return NextResponse.json(
+      { message: "Invalid JSON body", error },
+      { status: 400 }
+    );
+  }
+
+  try {
+    const income = await prisma.income.update({
+      where: { id: body.id },
+      data: {
+        amount: body.amount,
+        date: new Date(body.date),
+        tag: body.tag || null,
+      },
+    });
+
+    return NextResponse.json(income);
+  } catch (error) {
+    return NextResponse.json(
+      { message: "Database error", error },
+      { status: 500 }
+    );
+  }
+}
+
+export async function DELETE(req: NextRequest) {
+  const { userId } = await auth();
+  if (!userId) {
+    return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+  }
+
+  let body;
+  try {
+    body = await req.json();
+  } catch (error) {
+    return NextResponse.json(
+      { message: "Invalid JSON body", error },
+      { status: 400 }
+    );
+  }
+
+  try {
+    const income = await prisma.income.delete({
+      where: { id: body.id },
+    });
+
+    return NextResponse.json(income);
+  } catch (error) {
+    return NextResponse.json(
+      { message: "Database error", error },
+      { status: 500 }
+    );
+  }
+}

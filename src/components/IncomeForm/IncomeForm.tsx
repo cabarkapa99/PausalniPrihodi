@@ -14,12 +14,18 @@ import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { motion } from "framer-motion";
 import Loader from "../Loader/Loader";
+import ConfirmInputModal, {
+  IncomeData,
+} from "@/components/ConfirmInputModal/ConfirmInputModal";
 
 const IncomeForm = () => {
   const [value, setValue] = useState("");
   const [date, setDate] = useState<Date | null>(new Date());
   const [tag, setTag] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [pendingData, setPendingData] = useState<IncomeData | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -29,29 +35,37 @@ const IncomeForm = () => {
       return;
     }
 
-    const incomeData = {
+    const incomeData: IncomeData = {
       value: parseFloat(value),
-      date: date ? date.toISOString().split("T")[0] : null,
+      date: date ? date.toISOString().split("T")[0] : "",
       tag: tag.trim() || null,
     };
+
+    setPendingData(incomeData);
+    setShowConfirmModal(true);
+  };
+
+  const handleConfirmSubmit = async () => {
+    if (!pendingData) return;
 
     try {
       setLoading(true);
       await fetch("/api/income", {
         method: "POST",
-        body: JSON.stringify(incomeData),
+        body: JSON.stringify(pendingData),
         headers: { "Content-Type": "application/json" },
       });
     } catch (error) {
       console.error(error);
-      alert("An error occurred. Please try again.");
+      alert("Greška pri slanju.");
     } finally {
       setLoading(false);
+      setValue("");
+      setDate(new Date());
+      setTag("");
+      setShowConfirmModal(false);
+      setPendingData(null);
     }
-
-    setValue("");
-    setDate(null);
-    setTag("");
   };
 
   return (
@@ -74,7 +88,7 @@ const IncomeForm = () => {
             value={value}
             onChange={(e) => setValue(e.target.value)}
             required
-            placeholder="Unesite iznos"
+            placeholder="Iznos (bez tačke ili zareza)"
           />
         </div>
 
@@ -118,6 +132,17 @@ const IncomeForm = () => {
           Posalji
         </Button>
       </form>
+      {showConfirmModal && pendingData && (
+        <ConfirmInputModal
+          data={pendingData}
+          onCancel={() => {
+            setShowConfirmModal(false);
+            setPendingData(null);
+          }}
+          onConfirm={handleConfirmSubmit}
+          loading={loading}
+        />
+      )}
     </motion.div>
   );
 };
