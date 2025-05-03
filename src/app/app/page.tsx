@@ -9,7 +9,9 @@ import Table from "@/components/Table/Table";
 export default function App() {
   const [value, setValue] = useState("statistika");
   const [loading, setLoading] = useState(false);
-  const [data, setData] = useState<{ date: string; amount: number }[]>([]);
+  const [data, setData] = useState<
+    { id: string; date: string; amount: number; tag: string }[]
+  >([]);
 
   useEffect(() => {
     setLoading(true);
