@@ -37,7 +37,12 @@ const IncomeForm = () => {
 
     const incomeData: IncomeData = {
       value: parseFloat(value),
-      date: date ? date.toISOString().split("T")[0] : "",
+      date: date
+        ? `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(
+            2,
+            "0"
+          )}-${String(date.getDate()).padStart(2, "0")}`
+        : "",
       tag: tag.trim() || null,
     };
 
