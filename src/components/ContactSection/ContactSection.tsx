@@ -55,7 +55,7 @@ const ContactSection = () => {
             data.error || "Greška pri slanju poruke. Molimo pokušajte ponovo.",
         });
       }
-    } catch (error) {
+    } catch {
       setSubmitStatus({
         type: "error",
         message: "Greška pri slanju poruke. Molimo pokušajte ponovo.",

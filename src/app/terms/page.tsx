@@ -28,9 +28,9 @@ const TermsOfService = () => {
               </h2>
               <p className="text-gray-700 mb-4">
                 Dobrodošli u Paušalni Prihodi. Korišćenjem naše aplikacije
-                ("Usluga"), vi se slažete da budete vezani ovim uslovima
-                korišćenja ("Uslovi"). Ako se ne slažete sa bilo kojim delom
-                ovih uslova, ne smete koristiti našu uslugu.
+                (&quot;Usluga&quot;), vi se slažete da budete vezani ovim
+                uslovima korišćenja (&quot;Uslovi&quot;). Ako se ne slažete sa
+                bilo kojim delom ovih uslova, ne smete koristiti našu uslugu.
               </p>
             </section>
 
@@ -128,8 +128,8 @@ const TermsOfService = () => {
                 6. Odricanje odgovornosti
               </h2>
               <p className="text-gray-700 mb-4">
-                Usluga se pruža "kako jeste" bez garancija bilo koje vrste. Ne
-                garantujemo da će usluga biti:
+                Usluga se pruža &quot;kako jeste&quot; bez garancija bilo koje
+                vrste. Ne garantujemo da će usluga biti:
               </p>
               <ul className="list-disc pl-6 text-gray-700 mb-4">
                 <li>Neprekidno dostupna</li>

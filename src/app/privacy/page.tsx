@@ -27,10 +27,11 @@ const PrivacyPolicy = () => {
                 1. Uvod
               </h2>
               <p className="text-gray-700 mb-4">
-                Paušalni Prihodi ("mi", "naš", "nas") poštuje vašu privatnost i
-                obavezuje se da zaštiti vaše lične podatke. Ova politika
-                privatnosti objašnjava kako prikupljamo, koristimo i čuvamo vaše
-                informacije kada koristite našu aplikaciju.
+                Paušalni Prihodi (&quot;mi&quot;, &quot;naš&quot;,
+                &quot;nas&quot;) poštuje vašu privatnost i obavezuje se da
+                zaštiti vaše lične podatke. Ova politika privatnosti objašnjava
+                kako prikupljamo, koristimo i čuvamo vaše informacije kada
+                koristite našu aplikaciju.
               </p>
             </section>
 

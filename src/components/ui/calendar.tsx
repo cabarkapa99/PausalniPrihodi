@@ -67,7 +67,7 @@ function Calendar({
         }: {
           className?: string;
           orientation?: string;
-          [key: string]: any;
+          [key: string]: unknown;
         }) => {
           const IconComponent =
             orientation === "right" ? ChevronRight : ChevronLeft;
