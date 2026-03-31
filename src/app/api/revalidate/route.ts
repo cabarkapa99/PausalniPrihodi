@@ -9,18 +9,18 @@ type RevalidateTarget = {
 const normalizeTargets = (input: unknown): RevalidateTarget[] => {
   if (!Array.isArray(input)) return [];
 
-  return input
-    .map((entry) => {
-      if (!entry || typeof entry !== "object") return null;
-      const path = (entry as { path?: unknown }).path;
-      const type = (entry as { type?: unknown }).type;
+  return input.reduce<RevalidateTarget[]>((targets, entry) => {
+    if (!entry || typeof entry !== "object") return targets;
 
-      if (typeof path !== "string" || !path.startsWith("/")) return null;
-      if (type !== undefined && type !== "layout" && type !== "page") return null;
+    const path = (entry as { path?: unknown }).path;
+    const type = (entry as { type?: unknown }).type;
 
-      return { path, type };
-    })
-    .filter((entry): entry is RevalidateTarget => entry !== null);
+    if (typeof path !== "string" || !path.startsWith("/")) return targets;
+    if (type !== undefined && type !== "layout" && type !== "page") return targets;
+
+    targets.push({ path, type });
+    return targets;
+  }, []);
 };
 
 export async function POST(request: Request) {
