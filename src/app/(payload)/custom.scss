@@ -1,0 +1,120 @@
+:root {
+  --theme-elevation-0: #f3f7ff;
+  --theme-elevation-50: #ffffff;
+  --theme-elevation-100: #e7efff;
+  --theme-elevation-150: #dbe7ff;
+  --theme-elevation-200: #c7d8ff;
+  --theme-elevation-300: #9db8f5;
+  --theme-elevation-500: #4f6ea8;
+  --theme-elevation-800: #1e2f52;
+  --theme-elevation-900: #111827;
+  --theme-text: #1e293b;
+  --theme-input-bg: #ffffff;
+  --theme-bg: #f3f7ff;
+  --theme-success-500: #2563eb;
+  --theme-success-600: #1d4ed8;
+  --theme-success-100: #dbeafe;
+  --theme-success-200: #bfdbfe;
+  --theme-success-300: #93c5fd;
+}
+
+.template-minimal {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  background:
+    radial-gradient(circle at top right, rgba(37, 99, 235, 0.18), transparent 45%),
+    radial-gradient(circle at top left, rgba(30, 64, 175, 0.14), transparent 40%),
+    #f3f7ff;
+}
+
+.template-minimal__wrap {
+  width: min(460px, 100%);
+}
+
+.template-minimal .login__brand {
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.payload-admin-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.875rem;
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid #dbe7ff;
+}
+
+.payload-admin-logo__image {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+}
+
+.payload-admin-logo__text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.payload-admin-logo__text strong {
+  color: #1e293b;
+  font-size: 1.05rem;
+}
+
+.payload-admin-logo__text span {
+  color: #475569;
+  font-size: 0.82rem;
+}
+
+.template-minimal form {
+  background: #ffffff;
+  border: 1px solid #dbe7ff;
+  border-radius: 16px;
+  padding: 1.2rem;
+  box-shadow: 0 12px 34px rgba(30, 64, 175, 0.12);
+}
+
+.template-minimal .field-label {
+  color: #1e293b;
+  font-weight: 600;
+}
+
+.template-minimal .field-type input {
+  border-radius: 10px;
+  border: 1px solid #bfdbfe;
+  background: #f8fbff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.template-minimal .field-type input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+}
+
+.template-minimal .form-submit .btn {
+  border-radius: 10px;
+  border: none;
+  background: linear-gradient(135deg, #1e40af 0%, #111827 100%);
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.template-minimal .form-submit .btn:hover {
+  filter: brightness(0.98);
+}
+
+.template-minimal a {
+  color: #1d4ed8;
+}
+
+.template-minimal a:hover {
+  color: #1e40af;
+}

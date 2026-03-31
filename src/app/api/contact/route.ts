@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import nodemailer from "nodemailer";
+import { getSiteSettings } from "@/lib/landing-data";
+import { getPayloadClient } from "@/lib/payload";
 
 export async function POST(request: NextRequest) {
   try {
@@ -37,10 +39,13 @@ export async function POST(request: NextRequest) {
       },
     });
 
+    const siteSettings = await getSiteSettings();
+    const contactEmail = process.env.CONTACT_EMAIL || siteSettings.contactEmail;
+
     // Email content for the business owner
     const mailOptions = {
       from: process.env.SMTP_USER,
-      to: process.env.CONTACT_EMAIL || "pausalni-prihodi@uwit.rs",
+      to: contactEmail,
       subject: `Nova poruka sa sajta: ${subject}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -62,7 +67,7 @@ export async function POST(request: NextRequest) {
           
           <div style="margin-top: 20px; padding: 15px; background-color: #f0f9ff; border-left: 4px solid #2563eb; border-radius: 4px;">
             <p style="margin: 0; color: #1e40af; font-size: 14px;">
-              <strong>Napomena:</strong> Ova poruka je poslata sa kontakt forme na sajtu Pausalni Prihodi.
+              <strong>Napomena:</strong> Ova poruka je poslata sa kontakt forme na sajtu Paušalni Prihodi.
             </p>
           </div>
         </div>
@@ -96,7 +101,7 @@ export async function POST(request: NextRequest) {
           <div style="margin-top: 20px; padding: 15px; background-color: #f0f9ff; border-left: 4px solid #2563eb; border-radius: 4px;">
             <p style="margin: 0; color: #1e40af;">
               <strong>Kontakt:</strong><br>
-              Email: pausalni-prihodi@uwit.rs<br>
+              Email: ${contactEmail}<br>
               Radno vreme: Ponedeljak - Petak: 09:00 - 17:00
             </p>
           </div>
@@ -109,6 +114,12 @@ export async function POST(request: NextRequest) {
     };
 
     await transporter.sendMail(confirmationMailOptions);
+
+    const payload = await getPayloadClient();
+    await payload.create({
+      collection: "contact-submissions",
+      data: { name, email, subject, message },
+    });
 
     return NextResponse.json(
       { message: "Poruka je uspešno poslata!" },

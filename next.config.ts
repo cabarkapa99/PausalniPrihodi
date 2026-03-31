@@ -1,13 +1,19 @@
 import type { NextConfig } from "next";
+import { withPayload } from "@payloadcms/next/withPayload";
 
 const nextConfig: NextConfig = {
-  webpack: (config) => {
-    config.module.rules.push({
-      test: /\.(mp4|webm|ogg)$/,
-      type: "asset/resource",
-    });
-    return config;
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "pausalni-prihodi.com",
+      },
+      {
+        protocol: "https",
+        hostname: "app.pausalni-prihodi.com",
+      },
+    ],
   },
 };
 
-export default nextConfig;
+export default withPayload(nextConfig);
