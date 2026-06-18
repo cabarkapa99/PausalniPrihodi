@@ -54,10 +54,10 @@ export function Navbar({ siteName, appUrl }: NavbarProps) {
 
         <div className="hidden items-center gap-3 md:flex">
           <Button asChild variant="ghost" size="sm">
-            <a href={`${appUrl}/login`}>{"Prijavi se"}</a>
+            <a href={`${appUrl}/sign-in`}>{"Prijavi se"}</a>
           </Button>
           <Button asChild size="sm">
-            <a href={`${appUrl}/register`}>{"Kreiraj nalog besplatno"}</a>
+            <a href={`${appUrl}/sign-up`}>{"Kreiraj nalog besplatno"}</a>
           </Button>
         </div>
 
@@ -103,10 +103,10 @@ export function Navbar({ siteName, appUrl }: NavbarProps) {
             </a>
             <div className="flex flex-col gap-2 pt-2">
               <Button asChild variant="outline" size="sm" className="w-full">
-                <a href={`${appUrl}/login`}>{"Prijavi se"}</a>
+                <a href={`${appUrl}/sign-in`}>{"Prijavi se"}</a>
               </Button>
               <Button asChild size="sm" className="w-full">
-                <a href={`${appUrl}/register`}>{"Kreiraj nalog besplatno"}</a>
+                <a href={`${appUrl}/sign-up`}>{"Kreiraj nalog besplatno"}</a>
               </Button>
             </div>
           </div>
