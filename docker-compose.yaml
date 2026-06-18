@@ -1,0 +1,44 @@
+# Coolify deploys this single Next.js + Payload service. The CMS DB is external
+# (Neon); uploaded media goes to S3, so no persistent volume is needed.
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        # Build-time: Payload needs the secret; the homepage is prerendered and
+        # reads CMS content from the DB; NEXT_PUBLIC_* is baked into the bundle.
+        PAYLOAD_SECRET: ${PAYLOAD_SECRET}
+        DATABASE_URL: ${DATABASE_URL}
+        NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL}
+        SITE_URL: ${SITE_URL}
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      DATABASE_URL: ${DATABASE_URL}
+      PAYLOAD_SECRET: ${PAYLOAD_SECRET}
+      SITE_URL: ${SITE_URL}
+      NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL}
+      REVALIDATE_SECRET: ${REVALIDATE_SECRET:-}
+      CONTACT_EMAIL: ${CONTACT_EMAIL:-}
+      # Mail (contact form)
+      SMTP_HOST: ${SMTP_HOST:-}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_SECURE: ${SMTP_SECURE:-false}
+      SMTP_USER: ${SMTP_USER:-}
+      SMTP_PASS: ${SMTP_PASS:-}
+      # S3 media storage (same bucket/credentials as the app, under a prefix).
+      S3_BUCKET: ${S3_BUCKET:-}
+      S3_REGION: ${S3_REGION:-}
+      S3_ENDPOINT: ${S3_ENDPOINT:-}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID:-}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY:-}
+    expose:
+      - "3000"
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:3000/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 40s

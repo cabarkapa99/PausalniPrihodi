@@ -5,14 +5,11 @@ import Link from "next/link"
 import type { PricingData } from "@/lib/landing-data"
 
 export function Pricing({ heading, subheading, plans }: PricingData) {
-  const allPlans = plans ?? []
-  const plansWithoutPro = allPlans.filter((plan) => !/pro/i.test(plan.name))
-  const freePlan =
-    plansWithoutPro.find((plan) => /free|besplat/i.test(plan.name)) ??
-    plansWithoutPro[0] ??
-    null
-  const pricingPlans = freePlan ? [freePlan] : []
+  const pricingPlans = plans ?? []
   const isSinglePlan = pricingPlans.length === 1
+  // A paid plan (price not "0") is highlighted as the recommended one when
+  // shown alongside the free plan.
+  const isPaid = (price: string) => Boolean(price) && !/^0([.,]0+)?$/.test(price.trim())
 
   return (
     <section id="pricing" className="border-t border-border bg-card py-20 md:py-28">
@@ -41,15 +38,22 @@ export function Pricing({ heading, subheading, plans }: PricingData) {
               : "max-w-4xl md:grid-cols-2"
           }`}
         >
-          {pricingPlans.map((plan) => (
+          {pricingPlans.map((plan) => {
+            const featured = isSinglePlan || (!isSinglePlan && isPaid(plan.price))
+            return (
             <div
               key={plan.name}
               className={`relative flex flex-col rounded-2xl border bg-background ${
-                isSinglePlan
+                featured
                   ? "border-primary/30 p-10 shadow-sm ring-1 ring-primary/15"
                   : "border-border p-8"
               }`}
             >
+              {!isSinglePlan && isPaid(plan.price) ? (
+                <Badge className="absolute -top-3 right-6 rounded-full px-3 py-1">
+                  {"Najpopularnije"}
+                </Badge>
+              ) : null}
               <div>
                 <h3 className="font-mono text-xl font-bold text-foreground">
                   {plan.name}
@@ -82,7 +86,7 @@ export function Pricing({ heading, subheading, plans }: PricingData) {
 
               <Button
                 asChild
-                variant={isSinglePlan ? "default" : "outline"}
+                variant={featured ? "default" : "outline"}
                 size="lg"
                 className="mt-8 w-full gap-2"
               >
@@ -92,7 +96,8 @@ export function Pricing({ heading, subheading, plans }: PricingData) {
                 </Link>
               </Button>
             </div>
-          ))}
+            )
+          })}
         </div>
       </div>
     </section>

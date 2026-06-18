@@ -5,6 +5,8 @@ import {
   Users,
   Globe,
   TrendingUp,
+  Repeat,
+  QrCode,
 } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import type { FeaturesData } from "@/lib/landing-data"
@@ -16,6 +18,8 @@ const iconMap = {
   Users,
   Globe,
   TrendingUp,
+  Repeat,
+  QrCode,
 }
 
 export function BentoGrid({ heading, items }: FeaturesData) {

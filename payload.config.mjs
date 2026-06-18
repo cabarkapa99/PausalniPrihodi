@@ -3,6 +3,7 @@ import { fileURLToPath } from "url";
 import { buildConfig } from "payload";
 import { postgresAdapter } from "@payloadcms/db-postgres";
 import { lexicalEditor } from "@payloadcms/richtext-lexical";
+import { s3Storage } from "@payloadcms/storage-s3";
 import sharp from "sharp";
 
 import { ContactSubmissions } from "./src/collections/ContactSubmissions.ts";
@@ -66,6 +67,27 @@ export default buildConfig({
     MigrationNotice,
     ContactInfo,
   ],
+  // Store uploaded media in S3 when configured (same bucket/credentials as the
+  // app, under a `website-media` prefix). Falls back to local disk when S3_BUCKET
+  // is unset, so local dev needs no S3.
+  plugins: process.env.S3_BUCKET
+    ? [
+        s3Storage({
+          collections: { media: { prefix: "website-media" } },
+          bucket: process.env.S3_BUCKET,
+          config: {
+            region: process.env.S3_REGION || "us-east-1",
+            ...(process.env.S3_ENDPOINT
+              ? { endpoint: process.env.S3_ENDPOINT, forcePathStyle: true }
+              : {}),
+            credentials: {
+              accessKeyId: process.env.AWS_ACCESS_KEY_ID || "",
+              secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || "",
+            },
+          },
+        }),
+      ]
+    : [],
   typescript: {
     outputFile: path.resolve(dirname, "src/payload-types.ts"),
   },
