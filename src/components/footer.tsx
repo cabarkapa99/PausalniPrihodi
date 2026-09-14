@@ -38,6 +38,12 @@ export function Footer({ siteName }: FooterProps) {
             >
               {"Kolačići"}
             </Link>
+            <Link
+              href="/refund"
+              className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+            >
+              {"Refundacija"}
+            </Link>
           </div>
 
           <p className="text-sm text-muted-foreground">

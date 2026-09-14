@@ -19,6 +19,9 @@ export async function SiteFooter() {
           <Link href="/cookies" className="transition-colors hover:text-foreground">
             Kolačići
           </Link>
+          <Link href="/refund" className="transition-colors hover:text-foreground">
+            Refundacija
+          </Link>
         </nav>
       </div>
     </footer>
