@@ -22,6 +22,7 @@ export const LegalPages: CollectionConfig = {
         { label: "Privacy", value: "privacy" },
         { label: "Terms", value: "terms" },
         { label: "Cookies", value: "cookies" },
+        { label: "Refund", value: "refund" },
       ],
     },
     { name: "title", type: "text", required: true },

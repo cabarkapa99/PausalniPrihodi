@@ -7,9 +7,11 @@ import type { PricingData } from "@/lib/landing-data"
 export function Pricing({ heading, subheading, plans }: PricingData) {
   const pricingPlans = plans ?? []
   const isSinglePlan = pricingPlans.length === 1
-  // A paid plan (price not "0") is highlighted as the recommended one when
-  // shown alongside the free plan.
-  const isPaid = (price: string) => Boolean(price) && !/^0([.,]0+)?$/.test(price.trim())
+  // A paid plan (leading amount > 0) is highlighted as the recommended one
+  // when shown alongside the free plan. Prices are display strings that carry
+  // their own currency (e.g. "0 RSD", "3 €").
+  const isPaid = (price: string) =>
+    Boolean(price) && (Number.parseFloat(price.trim().replace(",", ".")) || 0) > 0
 
   return (
     <section id="pricing" className="border-t border-border bg-card py-20 md:py-28">
@@ -61,9 +63,6 @@ export function Pricing({ heading, subheading, plans }: PricingData) {
                 <div className="mt-3 flex items-baseline gap-1">
                   <span className="font-mono text-4xl font-bold text-foreground">
                     {plan.price}
-                  </span>
-                  <span className="text-lg text-muted-foreground">
-                    {"RSD"}
                   </span>
                   {plan.period && (
                     <span className="text-sm text-muted-foreground">

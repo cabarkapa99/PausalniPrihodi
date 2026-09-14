@@ -178,6 +178,14 @@ const Footer = () => {
                   Kolačići
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/refund"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  Refundacija
+                </Link>
+              </li>
               {/* <li>
                 <a
                   href="#gdpr"

@@ -404,6 +404,11 @@ export const legalMetadataBySlug: Record<
     description: "Kako i zašto koristimo kolačiće na sajtu.",
     path: "/cookies",
   },
+  refund: {
+    title: "Politika refundacije i otkazivanja",
+    description: "Uslovi otkazivanja Pro pretplate i povraćaja novca.",
+    path: "/refund",
+  },
 };
 
 export const canonicalForPath = (path: string) => `${SITE_URL}${path}`;
